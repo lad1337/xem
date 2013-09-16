@@ -1,3 +1,7 @@
+# NOTE: Main repo moved to https://github.com/thexem/xem #
+
+
+
 # Xem #
 
 In action here http://thexem.de/
