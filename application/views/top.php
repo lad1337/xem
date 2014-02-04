@@ -72,7 +72,7 @@ made at http://patorjk.com/software/taag/ with font Georgia11
     <?endif?>
     <?endif?>
 
-    <div class="navbar">
+    <div class="navbar navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -91,11 +91,8 @@ made at http://patorjk.com/software/taag/ with font Georgia11
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown"><? echo $user_nick ?> <strong class="caret"></strong></a>
                             <ul class="dropdown-menu">
                                 <li><?=anchor("user","<i class='icon-user'></i> Profile (Level $user_lvl)")?></li>
-                                <li><?=anchor("user/logout/".$uri, "<i class='icon-off'></i> Log Out")?></li>
-                            <?if(grantAcces(4)):?>
                                 <li class="divider"></li>
-                                <li><?=anchor("xem/adminShows","<i class='icon-fire'></i> Admin View")?></li>
-                            <?endif?>
+                                <li><?=anchor("user/logout/".$uri, "<i class='icon-off'></i> Log Out")?></li>
                             </ul>
                             <?else:?>
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
@@ -106,22 +103,22 @@ made at http://patorjk.com/software/taag/ with font Georgia11
                                     <div class="control-group">
                                         <label class="control-label" for="user">User:</label>
                                         <div class="controls">
-                                            <input type="text" name="user" class="input-large">
+                                            <input type="text" name="user" class="span3">
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label" for="user">Password:</label>
                                         <div class="controls">
-                                            <input type="password" name="pw" class="input-large">
+                                            <input type="password" name="pw" class="span3">
                                         </div>
                                     </div>
-                                    <div class="pull-left">
-                                        <div style="padding-top: 6px;">
-                                            <?=anchor("user/register","Need an account?")?>
+                                    <div class="control-group">
+                                        <div class="pull-left">
+                                            <?=anchor("user/register","Need an account?", array('style'=>'padding-top: 8px; padding-left: 0;'))?>
                                         </div>
-                                    </div>
-                                    <div class="pull-right">
-                                        <input class="btn btn-large" type="submit" value="Sign In">
+                                        <div class="pull-right">
+                                            <input class="btn btn-primary" type="submit" value="Sign In">
+                                        </div>
                                     </div>
                                 </fieldset>
                                 </form>
@@ -137,35 +134,22 @@ made at http://patorjk.com/software/taag/ with font Georgia11
                             <?=anchor("faq","FAQ")?>
                         </li>
                         <li class="divider-vertical"></li>
+                        <?if(grantAcces(4)):?>
+                        <li>
+                            <?=anchor("xem/adminShows","<i class='icon-fire icon-white'></i>", array('style'=>'padding-left: 5px; padding-right: 0;','rel'=>'tooltip','data-original-title'=>'Admin View'))?>
+                        </li>
+                        <li>
+                            <?=anchor("xem/shows","Shows", array('style'=>'padding-left: 5px;'))?>
+                        </li>
+                        <?else:?>
                         <li>
                             <?=anchor("xem/shows","Shows")?>
                         </li>
-                        <li>
-                            <?=form_open("xem/addShow",array('class'=>'navbar-search','id'=>'addShowForm'))?>
-                                <select id="elementSelector">
-                                    <?if($logedIn):?>
-                                        <option value="0">Add New Show</option>
-                                    <?endif?>
-                                    <option value="choose" <?if(!isset($fullelement)){echo 'selected="selected"';} ?>>Choose a Show</option>
-                                    <?foreach($shows as $row):?>
-                                        <option value="<?=$row->id?>"  <?if(isset($fullelement)){if($fullelement->id==$row->id) echo 'selected="selected"';} ?>><?=$row->main_name?></option>
-                                    <?endforeach?>
-                                </select>
-                                <div id="newStuff" class="hide">
-                                    <input id="newElementName" name="main_name" class="search-query" <?=$disabled?>/>
-                                    <div class="btn-group pull-right">
-                                        <input type="button" value="Cancel" id="cancelNewElement" class="btn btn-danger btn-mini" <?=$disabled?>/>
-                                        <input type="submit" value="Add" id="addNewElement" class="btn btn-primary btn-mini" <?=$disabled?>/>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
+                        <?endif?>
                         <li class="divider-vertical"></li>
-                    </ul>
-                    <ul class="nav pull-right">
                         <li>
                             <?=form_open("search/",array('method'=>'get','class'=>'navbar-search','id'=>'searchForm'))?>
-                                <input class="search-query" id="search" name="q" <?if(isset($searchQeuery)){echo 'value="'.$searchQeuery.'"';}?>/>
+                                <input class="search-query input-xlarge" placeholder="Search for show..." id="search" name="q" <?if(isset($searchQeuery)){echo 'value="'.$searchQeuery.'"';}?>/>
                                 <input id="search-submit" type="submit" value="Search">
                             </form>
                         </li>
@@ -176,13 +160,8 @@ made at http://patorjk.com/software/taag/ with font Georgia11
         </div><!-- /navbar-inner -->
     </div><!-- /navbar -->
 
-		<div id="header" style="display: none;">
-			<div id="logo">
-			</div>
-		</div>
-
     <div class="alert alert-error hide">
-        <button class="close" data-dismiss="alert">×</button>
+        <button class="close" data-dismiss="alert">&times;</button>
         <strong>Warning!</strong> Development : This site could break at any moment, be aware!
     </div>
 
